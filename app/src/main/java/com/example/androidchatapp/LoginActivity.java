@@ -9,7 +9,7 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 
-import java.util.List;
+import com.example.androidchatapp.Entities.*;
 
 public class LoginActivity extends AppCompatActivity {
     private AppDB db;

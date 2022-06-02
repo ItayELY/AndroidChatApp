@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.androidchatapp.Entities.User;
+
 public class RegisterActivity extends AppCompatActivity {
     private AppDB db;
     private UserDao userDao;
