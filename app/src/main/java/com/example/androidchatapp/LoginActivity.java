@@ -20,13 +20,14 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         db = Room.databaseBuilder(getApplicationContext(), AppDB.class, "UsersDB")
-                .allowMainThreadQueries().build();
+                .allowMainThreadQueries().fallbackToDestructiveMigration().build();
         userDao = db.userDao();
 
         Button toReg = findViewById(R.id.btnToRegister);
 
         toReg.setOnClickListener(view -> {
             Intent i = new Intent(this, RegisterActivity.class);
+
             startActivity(i);
         });
 
@@ -43,7 +44,8 @@ public class LoginActivity extends AppCompatActivity {
             }
             if(userName.getText().toString().equals(user.getUserName())){
                 if(password.getText().toString().equals(user.getPassword())){
-                    Intent i = new Intent(this, RegisterActivity.class);
+                    Intent i = new Intent(this, ContactsActivity.class);
+                    i.putExtra("CurUsr", userName.getText().toString());
                     startActivity(i);
                 }
             }

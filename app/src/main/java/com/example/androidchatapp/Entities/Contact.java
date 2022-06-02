@@ -1,20 +1,43 @@
 package com.example.androidchatapp.Entities;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import java.time.LocalDateTime;
+@Entity
 
 public class Contact {
+    @PrimaryKey(autoGenerate = true)
+    private int IId;
+    private String userId;
     private String id;
     private String name;
     private String server;
     private String lastMessage;
-    private LocalDateTime LastMessageDate;
+   // private LocalDateTime LastMessageDate;
 
-    public Contact(String id, String name, String server, String lastMessage, LocalDateTime lastMessageDate) {
+    public int getIId() {
+        return IId;
+    }
+
+    public void setIId(int IId) {
+        this.IId = IId;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public Contact(String id, String name, String server, String lastMessage) {
         this.id = id;
         this.name = name;
         this.server = server;
         this.lastMessage = lastMessage;
-        LastMessageDate = lastMessageDate;
+       //LastMessageDate = lastMessageDate;
     }
 
     public String getId() {
@@ -49,11 +72,11 @@ public class Contact {
         this.lastMessage = lastMessage;
     }
 
-    public LocalDateTime getLastMessageDate() {
-        return LastMessageDate;
-    }
+  //  public LocalDateTime getLastMessageDate() {
+   //     return LastMessageDate;
+   // }
 
-    public void setLastMessageDate(LocalDateTime lastMessageDate) {
-        LastMessageDate = lastMessageDate;
-    }
+   // public void setLastMessageDate(LocalDateTime lastMessageDate) {
+   //     LastMessageDate = lastMessageDate;
+ //   }
 }

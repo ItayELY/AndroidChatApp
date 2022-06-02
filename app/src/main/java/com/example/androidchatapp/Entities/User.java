@@ -3,6 +3,8 @@ package com.example.androidchatapp.Entities;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.util.List;
+
 @Entity
 public class User {
     public int getId() {
@@ -17,6 +19,7 @@ public class User {
     private int id;
     private String userName;
     private String password;
+
 
     public String getUserName() {
         return userName;
@@ -37,5 +40,13 @@ public class User {
     public User(String userName, String password) {
         this.userName = userName;
         this.password = password;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", userName='" + userName + '\'' +
+                '}';
     }
 }
