@@ -2,4 +2,6 @@
     <string name="app_name">AndroidChatApp</string>
     <string name="btnLogin">Login</string>
     <string name="btnToRegister">register</string>
+    <string name="add_new_contact">add New Contact:</string>
+    <string name="add">add</string>
 </resources>

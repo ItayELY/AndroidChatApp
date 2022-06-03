@@ -32,7 +32,8 @@ public class Contact {
         this.userId = userId;
     }
 
-    public Contact(String id, String name, String server, String lastMessage) {
+    public Contact(String userId, String id, String name, String server, String lastMessage) {
+        this.userId = userId;
         this.id = id;
         this.name = name;
         this.server = server;
@@ -72,7 +73,15 @@ public class Contact {
         this.lastMessage = lastMessage;
     }
 
-  //  public LocalDateTime getLastMessageDate() {
+    @Override
+    public String toString() {
+        return "Contact{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", lastMessage='" + lastMessage + '\'' +
+                '}';
+    }
+    //  public LocalDateTime getLastMessageDate() {
    //     return LastMessageDate;
    // }
 
