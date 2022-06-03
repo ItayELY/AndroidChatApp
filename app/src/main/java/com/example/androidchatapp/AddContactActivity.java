@@ -42,7 +42,17 @@ public class AddContactActivity extends AppCompatActivity {
             String UnameStr = Uname.getText().toString();
             EditText Nname = findViewById(R.id.etNewContactNickname);
             String NnameStr = Nname.getText().toString();
-
+            User usr = userDao.find(UnameStr);
+            if(usr == null){
+                return;
+            }
+            Contact checkContact = contactDao.get(username, UnameStr);
+            if(checkContact != null){
+                return;
+            }
+            if(UnameStr == username){
+                return;
+            }
             Contact contact = new Contact(username,
                     UnameStr,
                     NnameStr,
