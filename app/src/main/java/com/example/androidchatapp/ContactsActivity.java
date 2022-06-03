@@ -13,6 +13,7 @@ import com.example.androidchatapp.Entities.Contact;
 import com.example.androidchatapp.Entities.User;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ContactsActivity extends AppCompatActivity {
@@ -20,8 +21,8 @@ public class ContactsActivity extends AppCompatActivity {
     private UserDao userDao;
     private ContactDao contactDao;
     private ListView lvContacts;
-    private ArrayAdapter<Contact> adapter;
-    private List<Contact> contacts;
+    private ContactListAdapter adapter;
+    private ArrayList<Contact> contacts;
     private String username;
     private User userObject;
     @Override
@@ -35,10 +36,9 @@ public class ContactsActivity extends AppCompatActivity {
         username = getIntent().getExtras().getString("CurUsr");
         userObject = userDao.find(username);
         lvContacts = findViewById(R.id.lvContacts);
-        contacts = contactDao.getAll(username);
-        adapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1,
-                contacts);
+        contacts = new ArrayList<>();
+        contacts.addAll(contactDao.getAll(username));
+        adapter = new ContactListAdapter(this, contacts);
 
         lvContacts.setAdapter(adapter);
         lvContacts.setOnItemLongClickListener((adapterView, view, i, l) -> {

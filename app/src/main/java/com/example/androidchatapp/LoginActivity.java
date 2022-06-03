@@ -20,7 +20,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         db = Room.databaseBuilder(getApplicationContext(), AppDB.class, "UsersDB")
-                .allowMainThreadQueries().fallbackToDestructiveMigration().build();
+                .allowMainThreadQueries().build();
         userDao = db.userDao();
 
         Button toReg = findViewById(R.id.btnToRegister);
