@@ -34,9 +34,13 @@ public class RegisterActivity extends AppCompatActivity {
             EditText password = findViewById(R.id.etPassword);
             EditText passwordValid = findViewById(R.id.etPasswordValid);
             EditText nick = findViewById(R.id.etNickname);
-
+            if(password.getText().toString() != passwordValid.getText().toString()){
+                return;
+            }
             User u = new User(userName.getText().toString(), password.getText().toString());
             userDao.insert(u);
+            Intent i = new Intent(this, LoginActivity.class);
+            startActivity(i);
 
         });
     }
