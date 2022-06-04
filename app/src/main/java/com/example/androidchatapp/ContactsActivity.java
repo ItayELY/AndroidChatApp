@@ -48,6 +48,14 @@ public class ContactsActivity extends AppCompatActivity {
             return true;
         });
 
+        lvContacts.setOnItemClickListener((adapterView, view, i, l) -> {
+            Contact contact = contacts.get(i);
+            Intent in = new Intent(this, ChatActivity.class);
+            in.putExtra("CurUsr", username);
+            in.putExtra("CurContact", contact.getName());
+            startActivity(in);
+        });
+
         FloatingActionButton addContact = findViewById(R.id.btnAddContact);
         addContact.setOnClickListener(view -> {
             Intent i = new Intent(this, AddContactActivity.class);

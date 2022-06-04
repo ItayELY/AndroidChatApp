@@ -8,4 +8,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="blue">#FF3700F3</color>
+
+    <color name="green_bg_message">#9ee89f</color>
+    <color name="green_bg_profile">#52f255</color>
 </resources>

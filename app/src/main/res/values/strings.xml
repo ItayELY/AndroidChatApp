@@ -7,4 +7,6 @@
     <string name="contact_default">contact</string>
     <string name="default_lastMessage">no messages</string>
     <string name="default_lastMessageTime">00:00</string>
+    <string name="defaultcontactname">defaultContactName</string>
+    <string name="send">send</string>
 </resources>

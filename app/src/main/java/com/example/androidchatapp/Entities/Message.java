@@ -70,4 +70,11 @@ public class Message {
     public void setChatId(int chatId) {
         ChatId = chatId;
     }
+
+    @Override
+    public String toString() {
+        return
+                "content=" + content +
+                ", sent by=" + sentBy;
+    }
 }
