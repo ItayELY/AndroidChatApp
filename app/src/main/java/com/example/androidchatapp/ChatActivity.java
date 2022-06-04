@@ -18,6 +18,8 @@ import com.example.androidchatapp.Entities.Contact;
 import com.example.androidchatapp.Entities.Message;
 import com.example.androidchatapp.Entities.User;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 public class ChatActivity extends AppCompatActivity {
@@ -27,7 +29,7 @@ public class ChatActivity extends AppCompatActivity {
     private MessageDao messageDao;
     private ChatDao chatDao;
     private ListView lvMessages;
-    private ArrayAdapter adapter;
+    private MessageListAdapter adapter;
     private ArrayList<Message> messages;
     private String username;
     private String contactUsername;
@@ -46,12 +48,23 @@ public class ChatActivity extends AppCompatActivity {
         chatDao = db.chatDao();
         username = getIntent().getExtras().getString("CurUsr");
         contactUsername = getIntent().getExtras().getString("CurContact");
+        contactNickname = getIntent().getExtras().getString("CurContactNickname");
         userObject = userDao.find(username);
         chat = chatDao.find(username, contactUsername);
         lvMessages = findViewById(R.id.lvMessages);
+        TextView tvContactName = findViewById(R.id.tvContactNameChat);
+        tvContactName.setText(contactNickname);
         messages = new ArrayList<>();
         messages.addAll(messageDao.getAllMessages(chat.getId()));
-        adapter = new ArrayAdapter<Message>(this, android.R.layout.simple_list_item_1, messages);
+        for(Message m : messages){
+            if(m.getSentBy().equals(username)){
+                m.setSent(true);
+            }
+            else{
+                m.setSent(false);
+            }
+        }
+        adapter = new MessageListAdapter(this, messages);
         lvMessages.setAdapter(adapter);
 
         EditText etMessage = findViewById(R.id.etSendMessage);
@@ -62,6 +75,14 @@ public class ChatActivity extends AppCompatActivity {
             messageDao.insert(m);
             messages.clear();
             messages.addAll(messageDao.getAllMessages(chat.getId()));
+            for(Message mes : messages){
+                if(mes.getSentBy().equals(username)){
+                    mes.setSent(true);
+                }
+                else{
+                    mes.setSent(false);
+                }
+            }
             adapter.notifyDataSetChanged();
         });
     }

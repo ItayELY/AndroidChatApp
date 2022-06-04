@@ -53,6 +53,7 @@ public class ContactsActivity extends AppCompatActivity {
             Intent in = new Intent(this, ChatActivity.class);
             in.putExtra("CurUsr", username);
             in.putExtra("CurContact", contact.getId());
+            in.putExtra("CurContactNickname", contact.getName());
             startActivity(in);
         });
 

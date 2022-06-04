@@ -11,4 +11,5 @@
 
     <color name="green_bg_message">#9ee89f</color>
     <color name="green_bg_profile">#52f255</color>
+    <color name="green">#007800</color>
 </resources>
