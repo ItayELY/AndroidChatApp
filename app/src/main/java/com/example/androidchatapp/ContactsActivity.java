@@ -52,7 +52,7 @@ public class ContactsActivity extends AppCompatActivity {
             Contact contact = contacts.get(i);
             Intent in = new Intent(this, ChatActivity.class);
             in.putExtra("CurUsr", username);
-            in.putExtra("CurContact", contact.getName());
+            in.putExtra("CurContact", contact.getId());
             startActivity(in);
         });
 

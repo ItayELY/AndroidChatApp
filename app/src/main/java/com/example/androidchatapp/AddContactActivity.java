@@ -71,7 +71,10 @@ public class AddContactActivity extends AppCompatActivity {
                     "Localhost:3000"
                     , null);
             contactDao.insert(contact);
-
+            Chat c1 = chatDao.find(username, UnameStr);
+            if(c1 != null){
+                finish();
+            }
             Chat c = new Chat(username, UnameStr);
             Message m = new Message("hi", true, username,
                     c.getId());
