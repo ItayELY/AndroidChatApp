@@ -9,16 +9,18 @@ import java.time.*;
 public class Message {
     @PrimaryKey(autoGenerate = true)
     private int id;
+    private int ChatId;
     private String content;
-    private LocalDateTime created;
+//    private LocalDateTime created;
     private Boolean sent;
     private String sentBy;
 
-    public Message(String content, LocalDateTime created, Boolean sent, String sentBy) {
+    public Message(String content, Boolean sent, String sentBy, int ChatId) {
         this.content = content;
-        this.created = created;
+        //this.created = created;
         this.sent = sent;
         this.sentBy = sentBy;
+        this.ChatId = ChatId;
     }
 
     public int getId() {
@@ -37,13 +39,13 @@ public class Message {
         this.content = content;
     }
 
-    public LocalDateTime getCreated() {
-        return created;
-    }
+    //public LocalDateTime getCreated() {
+        //return created;
+   // }
 
-    public void setCreated(LocalDateTime created) {
-        this.created = created;
-    }
+    //public void setCreated(LocalDateTime created) {
+     //   this.created = created;
+    //}
 
     public Boolean getSent() {
         return sent;
@@ -59,5 +61,13 @@ public class Message {
 
     public void setSentBy(String sentBy) {
         this.sentBy = sentBy;
+    }
+
+    public int getChatId() {
+        return ChatId;
+    }
+
+    public void setChatId(int chatId) {
+        ChatId = chatId;
     }
 }

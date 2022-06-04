@@ -1,28 +1,38 @@
 package com.example.androidchatapp;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import com.example.androidchatapp.Entities.Chat;
 import com.example.androidchatapp.Entities.Contact;
+import com.example.androidchatapp.Entities.Message;
 import com.example.androidchatapp.Entities.User;
 
+import java.sql.Time;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class AddContactActivity extends AppCompatActivity {
     private AppDB db;
     private UserDao userDao;
     private ContactDao contactDao;
+    private ChatDao chatDao;
+    private MessageDao messageDao;
     private ListView lvContacts;
     private ArrayAdapter<Contact> adapter;
     private List<Contact> contacts;
     private String username;
     private User userObject;
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +42,8 @@ public class AddContactActivity extends AppCompatActivity {
                 .allowMainThreadQueries().build();
         userDao = db.userDao();
         contactDao = db.contactDao();
+        chatDao = db.chatDao();
+        messageDao = db.messageDao();
         username = getIntent().getExtras().getString("CurUsr");
         userObject = userDao.find(username);
 
@@ -60,6 +72,11 @@ public class AddContactActivity extends AppCompatActivity {
                     , null);
             contactDao.insert(contact);
 
+            Chat c = new Chat(username, UnameStr);
+            Message m = new Message("hi", true, username,
+                    c.getId());
+            chatDao.insert(c);
+            messageDao.insert(m);
             finish();
         });
     }

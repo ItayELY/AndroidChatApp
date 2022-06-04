@@ -5,6 +5,7 @@ import androidx.room.Room;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -34,11 +35,14 @@ public class RegisterActivity extends AppCompatActivity {
             EditText password = findViewById(R.id.etPassword);
             EditText passwordValid = findViewById(R.id.etPasswordValid);
             EditText nick = findViewById(R.id.etNickname);
-            if(password.getText().toString() != passwordValid.getText().toString()){
+            Log.i("reg", "pressed");
+            if(!password.getText().toString().equals(passwordValid.getText().toString())){
+                Log.i("reg", "bad pass");
                 return;
             }
             User u = new User(userName.getText().toString(), password.getText().toString());
             userDao.insert(u);
+            Log.i("reg", "better pass");
             Intent i = new Intent(this, LoginActivity.class);
             startActivity(i);
 

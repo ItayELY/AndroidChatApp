@@ -3,18 +3,19 @@ package com.example.androidchatapp.Entities;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 public class Chat {
     @PrimaryKey(autoGenerate = true)
     private int id;
-    private List<String> interlocuters;
-    private List<Message> messages;
+    private String inter1;
+    private String inter2;
 
-    public Chat(List<String> interlocuters, List<Message> messages) {
-        this.interlocuters = interlocuters;
-        this.messages = messages;
+    public Chat(String inter1, String inter2) {
+        this.inter1 = inter1;
+        this.inter2 = inter2;
     }
 
     public int getId() {
@@ -26,18 +27,25 @@ public class Chat {
     }
 
     public List<String> getInterlocuters() {
-        return interlocuters;
+        List<String> inters= new ArrayList<>();
+        inters.add(this.inter1);
+        inters.add(this.inter2);
+        return inters;
     }
 
-    public void setInterlocuters(List<String> interlocuters) {
-        this.interlocuters = interlocuters;
+    public String getInter1() {
+        return inter1;
     }
 
-    public List<Message> getMessages() {
-        return messages;
+    public void setInter1(String inter1) {
+        this.inter1 = inter1;
     }
 
-    public void setMessages(List<Message> messages) {
-        this.messages = messages;
+    public String getInter2() {
+        return inter2;
+    }
+
+    public void setInter2(String inter2) {
+        this.inter2 = inter2;
     }
 }
