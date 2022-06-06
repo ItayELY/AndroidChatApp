@@ -9,10 +9,10 @@ import com.example.androidchatapp.Entities.Contact;
 import com.example.androidchatapp.Entities.Message;
 import com.example.androidchatapp.Entities.User;
 
-@Database(entities = {User.class, Contact.class, Message.class, Chat.class}, version = 3
+@Database(entities = {User.class, Contact.class, Message.class, Chat.class}, version = 4
                // autoMigrations = {
-               //         @AutoMigration(from = 2, to = 3)
-              //  }
+                //        @AutoMigration(from = 3, to = 4)
+               // }
         )
 public abstract class AppDB extends RoomDatabase {
     public abstract UserDao userDao();
