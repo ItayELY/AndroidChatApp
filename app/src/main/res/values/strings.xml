@@ -10,4 +10,5 @@
     <string name="defaultcontactname">defaultContactName</string>
     <string name="send">send</string>
     <string name="default_message">message</string>
+    <string name="BaseUrl">http://10.0.2.2:5200/api/</string>
 </resources>

@@ -37,12 +37,12 @@ public class RegisterActivity extends AppCompatActivity {
             EditText nick = findViewById(R.id.etNickname);
             Log.i("reg", "pressed");
             if(!password.getText().toString().equals(passwordValid.getText().toString())){
-                Log.i("reg", "bad pass");
                 return;
             }
             User u = new User(userName.getText().toString(), password.getText().toString());
-            userDao.insert(u);
-            Log.i("reg", "better pass");
+           // userDao.insert(u);
+            UsersApi usersApi = new UsersApi();
+            usersApi.register(u);
             Intent i = new Intent(this, LoginActivity.class);
             startActivity(i);
 
