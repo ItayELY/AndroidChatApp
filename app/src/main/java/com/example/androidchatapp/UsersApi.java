@@ -5,8 +5,12 @@ import android.util.Log;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.androidchatapp.Compatible.UserToApi;
+import com.example.androidchatapp.Entities.Contact;
 import com.example.androidchatapp.Entities.User;
+import com.example.androidchatapp.ViewModels.ContactsViewModel;
 import com.example.androidchatapp.ViewModels.UserViewModel;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -66,5 +70,22 @@ public class UsersApi {
             }
         });
         return resUser[0];
+    }
+    public void contacts(String username, ContactsActivity contactsActivity){
+        Call<List<Contact>> call = webServiceApi.contacts(username);
+        call.enqueue(new Callback<List<Contact>>() {
+            @Override
+            public void onResponse(Call<List<Contact>> call, Response<List<Contact>> response) {
+                List<Contact> contacts = response.body();
+                ContactsViewModel contactsViewModel = new ViewModelProvider(contactsActivity)
+                        .get(ContactsViewModel.class);
+                contactsViewModel.getContacts().setValue(contacts);
+            }
+
+            @Override
+            public void onFailure(Call<List<Contact>> call, Throwable t) {
+                Log.i("contacts", t.getMessage());
+            }
+        });
     }
 }
