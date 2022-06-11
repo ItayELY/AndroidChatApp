@@ -1,6 +1,7 @@
 package com.example.androidchatapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.room.Room;
 
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import com.example.androidchatapp.Entities.Chat;
 import com.example.androidchatapp.Entities.Contact;
 import com.example.androidchatapp.Entities.Message;
 import com.example.androidchatapp.Entities.User;
+import com.example.androidchatapp.ViewModels.MessagesViewModel;
 
 import org.w3c.dom.Text;
 
@@ -36,12 +38,14 @@ public class ChatActivity extends AppCompatActivity {
     private String contactNickname;
     private User userObject;
     private Chat chat;
+    private MessagesViewModel messagesViewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
         db = Room.databaseBuilder(getApplicationContext(), AppDB.class, "UsersDB")
-                .allowMainThreadQueries().build();
+                .allowMainThreadQueries().fallbackToDestructiveMigration().build();
         userDao = db.userDao();
         contactDao = db.contactDao();
         messageDao = db.messageDao();
@@ -49,6 +53,20 @@ public class ChatActivity extends AppCompatActivity {
         username = getIntent().getExtras().getString("CurUsr");
         contactUsername = getIntent().getExtras().getString("CurContact");
         contactNickname = getIntent().getExtras().getString("CurContactNickname");
+        messagesViewModel = new ViewModelProvider(this)
+                .get(MessagesViewModel.class);
+        messagesViewModel.getMessages().observe(this, messageList -> {
+            //userObject = userDao.find(username);
+            //chat = chatDao.find(username, contactUsername);
+            lvMessages = findViewById(R.id.lvMessages);
+            TextView tvContactName = findViewById(R.id.tvContactNameChat);
+            tvContactName.setText(contactNickname);
+            messages = new ArrayList<>();
+            messages.addAll(messageList);
+            adapter = new MessageListAdapter(this, messages);
+            lvMessages.setAdapter(adapter);
+        });
+        /*
         userObject = userDao.find(username);
         chat = chatDao.find(username, contactUsername);
         lvMessages = findViewById(R.id.lvMessages);
@@ -66,7 +84,9 @@ public class ChatActivity extends AppCompatActivity {
         }
         adapter = new MessageListAdapter(this, messages);
         lvMessages.setAdapter(adapter);
-
+        */
+        UsersApi usersApi = new UsersApi();
+        usersApi.messages(username, contactUsername, this);
         EditText etMessage = findViewById(R.id.etSendMessage);
         Button btnSend = findViewById(R.id.btnSendMessage);
 
@@ -74,7 +94,7 @@ public class ChatActivity extends AppCompatActivity {
             Message m = new Message(etMessage.getText().toString(), true, username, chat.getId());
             messageDao.insert(m);
             messages.clear();
-            messages.addAll(messageDao.getAllMessages(chat.getId()));
+          //  messages.addAll(messageDao.getAllMessages(chat.getId()));
             for(Message mes : messages){
                 if(mes.getSentBy().equals(username)){
                     mes.setSent(true);

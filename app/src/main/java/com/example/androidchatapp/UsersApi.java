@@ -7,8 +7,10 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.androidchatapp.Compatible.ContactToApi;
 import com.example.androidchatapp.Compatible.UserToApi;
 import com.example.androidchatapp.Entities.Contact;
+import com.example.androidchatapp.Entities.Message;
 import com.example.androidchatapp.Entities.User;
 import com.example.androidchatapp.ViewModels.ContactsViewModel;
+import com.example.androidchatapp.ViewModels.MessagesViewModel;
 import com.example.androidchatapp.ViewModels.UserViewModel;
 
 import java.util.List;
@@ -90,8 +92,7 @@ public class UsersApi {
         });
     }
     public void addContact(String username, String id,
-                           String name, String server, String laseMessageDate,
-                           AddContactActivity addContactActivity){
+                           String name, String server, String laseMessageDate){
         ContactToApi contactToApi = new ContactToApi(username, id, name, server, laseMessageDate);
         Call<Void> call = webServiceApi.addContact(id, username, contactToApi);
         call.enqueue(new Callback<Void>() {
@@ -103,6 +104,22 @@ public class UsersApi {
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
                 Log.i("addContact", "successful");
+            }
+        });
+    }
+    public void messages(String username, String id, ChatActivity chatActivity){
+        Call<List<Message>> call = webServiceApi.messages(id, username);
+        call.enqueue(new Callback<List<Message>>() {
+            @Override
+            public void onResponse(Call<List<Message>> call, Response<List<Message>> response) {
+                MessagesViewModel messagesViewModel = new ViewModelProvider(chatActivity)
+                        .get(MessagesViewModel.class);
+                messagesViewModel.getMessages().setValue(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<List<Message>> call, Throwable t) {
+
             }
         });
     }

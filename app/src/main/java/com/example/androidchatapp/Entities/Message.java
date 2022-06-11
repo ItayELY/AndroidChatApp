@@ -11,7 +11,7 @@ public class Message {
     private int id;
     private int ChatId;
     private String content;
-//    private LocalDateTime created;
+    private String created;
     private Boolean sent;
     private String sentBy;
 
@@ -39,13 +39,13 @@ public class Message {
         this.content = content;
     }
 
-    //public LocalDateTime getCreated() {
-        //return created;
-   // }
+    public String getCreated() {
+        return created;
+    }
 
-    //public void setCreated(LocalDateTime created) {
-     //   this.created = created;
-    //}
+    public void setCreated(String created) {
+        this.created = created;
+    }
 
     public Boolean getSent() {
         return sent;

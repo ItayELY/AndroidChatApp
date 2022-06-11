@@ -3,6 +3,7 @@ package com.example.androidchatapp;
 import com.example.androidchatapp.Compatible.ContactToApi;
 import com.example.androidchatapp.Compatible.UserToApi;
 import com.example.androidchatapp.Entities.Contact;
+import com.example.androidchatapp.Entities.Message;
 import com.example.androidchatapp.Entities.User;
 
 import java.util.List;
@@ -31,4 +32,9 @@ public interface WebServiceApi {
             @Path(value = "id", encoded = true)String id,
             @Query("userId") String userId,
                           @Body ContactToApi contactToApi);
+
+    @GET("Contacts/{id}/messages")
+    Call<List<Message>> messages(
+            @Path(value = "id", encoded = true)String id,
+            @Query("userId") String user);
 }

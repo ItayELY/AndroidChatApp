@@ -45,7 +45,7 @@ public class AddContactActivity extends AppCompatActivity {
         chatDao = db.chatDao();
         messageDao = db.messageDao();
         username = getIntent().getExtras().getString("CurUsr");
-        userObject = userDao.find(username);
+        //userObject = userDao.find(username);
 
         Button Add = findViewById(R.id.btnSubmitNewContact);
 
@@ -56,7 +56,7 @@ public class AddContactActivity extends AppCompatActivity {
             String NnameStr = Nname.getText().toString();
             UsersApi usersApi = new UsersApi();
             usersApi.addContact(username,UnameStr, NnameStr, "localhost:3000",
-                    "2022-06-11T22:01:12.998Z", this);
+                    "2022-06-11T22:01:12.998Z");
             /*
             User usr = userDao.find(UnameStr);
             if(usr == null){
