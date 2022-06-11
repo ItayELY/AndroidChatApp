@@ -54,6 +54,10 @@ public class AddContactActivity extends AppCompatActivity {
             String UnameStr = Uname.getText().toString();
             EditText Nname = findViewById(R.id.etNewContactNickname);
             String NnameStr = Nname.getText().toString();
+            UsersApi usersApi = new UsersApi();
+            usersApi.addContact(username,UnameStr, NnameStr, "localhost:3000",
+                    "2022-06-11T22:01:12.998Z", this);
+            /*
             User usr = userDao.find(UnameStr);
             if(usr == null){
                 return;
@@ -80,6 +84,8 @@ public class AddContactActivity extends AppCompatActivity {
                     c.getId());
             chatDao.insert(c);
             messageDao.insert(m);
+
+             */
             finish();
         });
     }

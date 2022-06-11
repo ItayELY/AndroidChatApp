@@ -77,8 +77,7 @@ public class ContactsActivity extends AppCompatActivity {
     @Override
     protected void onResume(){
         super.onResume();
-        //contacts.clear();
-       // contacts.addAll(contactDao.getAll(this.username));
-        //adapter.notifyDataSetChanged();
+        UsersApi usersApi = new UsersApi();
+        usersApi.contacts(username, this);
     }
 }

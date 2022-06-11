@@ -4,6 +4,7 @@ import android.util.Log;
 
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.androidchatapp.Compatible.ContactToApi;
 import com.example.androidchatapp.Compatible.UserToApi;
 import com.example.androidchatapp.Entities.Contact;
 import com.example.androidchatapp.Entities.User;
@@ -85,6 +86,23 @@ public class UsersApi {
             @Override
             public void onFailure(Call<List<Contact>> call, Throwable t) {
                 Log.i("contacts", t.getMessage());
+            }
+        });
+    }
+    public void addContact(String username, String id,
+                           String name, String server, String laseMessageDate,
+                           AddContactActivity addContactActivity){
+        ContactToApi contactToApi = new ContactToApi(username, id, name, server, laseMessageDate);
+        Call<Void> call = webServiceApi.addContact(id, username, contactToApi);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                Log.i("addContact", "successful");
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Log.i("addContact", "successful");
             }
         });
     }
