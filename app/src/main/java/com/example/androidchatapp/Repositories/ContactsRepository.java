@@ -2,7 +2,7 @@ package com.example.androidchatapp.Repositories;
 
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.androidchatapp.ContactDao;
+import com.example.androidchatapp.Daos.ContactDao;
 import com.example.androidchatapp.Entities.Contact;
 import com.example.androidchatapp.UsersApi;
 import com.example.androidchatapp.ViewModels.UserViewModel;

@@ -11,14 +11,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
-import com.example.androidchatapp.Entities.Chat;
+import com.example.androidchatapp.Daos.ChatDao;
+import com.example.androidchatapp.Daos.ContactDao;
+import com.example.androidchatapp.Daos.MessageDao;
+import com.example.androidchatapp.Daos.UserDao;
 import com.example.androidchatapp.Entities.Contact;
-import com.example.androidchatapp.Entities.Message;
 import com.example.androidchatapp.Entities.User;
 
-import java.sql.Time;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 public class AddContactActivity extends AppCompatActivity {

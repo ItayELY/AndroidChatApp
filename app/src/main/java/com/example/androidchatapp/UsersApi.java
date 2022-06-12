@@ -2,6 +2,7 @@ package com.example.androidchatapp;
 
 import android.util.Log;
 
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.androidchatapp.Compatible.ContactToApi;
@@ -74,6 +75,31 @@ public class UsersApi {
         });
         return resUser[0];
     }
+
+    public UserToApi loginViewModel(String username, String password,
+                                    MutableLiveData<UserToApi> connected){
+        Call<UserToApi> call = webServiceApi.login(new UserToApi(username,
+                username, password, "localhost:3000"));
+        final Boolean[] didLogin = {false};
+        final UserToApi[] resUser = {null};
+        call.enqueue(new Callback<UserToApi>() {
+            @Override
+            public void onResponse(Call<UserToApi> call, Response<UserToApi> response) {
+                didLogin[0] = (response.code() == 200);
+                if(didLogin[0]){
+                    connected.setValue(response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UserToApi> call, Throwable t) {
+                Log.i("login", "fail");
+            }
+        });
+        return resUser[0];
+    }
+
+
     public void contacts(String username, ContactsActivity contactsActivity){
         Call<List<Contact>> call = webServiceApi.contacts(username);
         call.enqueue(new Callback<List<Contact>>() {

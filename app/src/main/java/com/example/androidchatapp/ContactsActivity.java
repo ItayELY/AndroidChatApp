@@ -6,18 +6,15 @@ import androidx.room.Room;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 
+import com.example.androidchatapp.Daos.ContactDao;
+import com.example.androidchatapp.Daos.UserDao;
 import com.example.androidchatapp.Entities.Contact;
-import com.example.androidchatapp.Entities.User;
 import com.example.androidchatapp.ViewModels.ContactsViewModel;
-import com.example.androidchatapp.ViewModels.UserViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ContactsActivity extends AppCompatActivity {
     private AppDB db;

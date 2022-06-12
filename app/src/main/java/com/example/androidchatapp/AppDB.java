@@ -1,9 +1,12 @@
 package com.example.androidchatapp;
 
-import androidx.room.AutoMigration;
 import androidx.room.Database;
 import androidx.room.RoomDatabase;
 
+import com.example.androidchatapp.Daos.ChatDao;
+import com.example.androidchatapp.Daos.ContactDao;
+import com.example.androidchatapp.Daos.MessageDao;
+import com.example.androidchatapp.Daos.UserDao;
 import com.example.androidchatapp.Entities.Chat;
 import com.example.androidchatapp.Entities.Contact;
 import com.example.androidchatapp.Entities.Message;

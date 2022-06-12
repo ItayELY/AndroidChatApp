@@ -5,22 +5,19 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.room.Room;
 
 import android.os.Bundle;
-import android.widget.Adapter;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.androidchatapp.Daos.ChatDao;
+import com.example.androidchatapp.Daos.ContactDao;
+import com.example.androidchatapp.Daos.MessageDao;
+import com.example.androidchatapp.Daos.UserDao;
 import com.example.androidchatapp.Entities.Chat;
-import com.example.androidchatapp.Entities.Contact;
 import com.example.androidchatapp.Entities.Message;
 import com.example.androidchatapp.Entities.User;
 import com.example.androidchatapp.ViewModels.MessagesViewModel;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 

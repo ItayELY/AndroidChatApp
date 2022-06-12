@@ -11,10 +11,8 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.androidchatapp.Compatible.UserToApi;
-import com.example.androidchatapp.Entities.*;
+import com.example.androidchatapp.Daos.UserDao;
 import com.example.androidchatapp.ViewModels.UserViewModel;
-
-import java.util.concurrent.atomic.AtomicReference;
 
 public class LoginActivity extends AppCompatActivity {
     private AppDB db;
@@ -29,7 +27,6 @@ public class LoginActivity extends AppCompatActivity {
         db = Room.databaseBuilder(getApplicationContext(), AppDB.class, "UsersDB")
                 .allowMainThreadQueries().fallbackToDestructiveMigration().build();
         userDao = db.userDao();
-
         Button toReg = findViewById(R.id.btnToRegister);
 
         toReg.setOnClickListener(view -> {
@@ -56,10 +53,12 @@ public class LoginActivity extends AppCompatActivity {
                 return;
             }
 
- */
-            UsersApi usersApi = new UsersApi();
-            UserToApi u = usersApi.login(userName.getText().toString(),
+ */         userViewModel.login(userName.getText().toString(), password.getText().toString());
+ /*
+ usersApi.login(userName.getText().toString(),
                     password.getText().toString(), this);
+
+  */
             /*
             if(userName.getText().toString().equals(user.getName())){
                 if(password.getText().toString().equals(user.getPassword())){

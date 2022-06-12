@@ -9,6 +9,7 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.androidchatapp.Daos.UserDao;
 import com.example.androidchatapp.Entities.User;
 
 public class RegisterActivity extends AppCompatActivity {
