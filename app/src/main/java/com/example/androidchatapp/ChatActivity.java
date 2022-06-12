@@ -91,10 +91,12 @@ public class ChatActivity extends AppCompatActivity {
         Button btnSend = findViewById(R.id.btnSendMessage);
 
         btnSend.setOnClickListener(view -> {
-            Message m = new Message(etMessage.getText().toString(), true, username, chat.getId());
-            messageDao.insert(m);
-            messages.clear();
+           // Message m = new Message(etMessage.getText().toString(), true, username, chat.getId());
+            usersApi.sendMessage(username, contactUsername, etMessage.getText().toString());
+            // messageDao.insert(m);
+            //messages.clear();
           //  messages.addAll(messageDao.getAllMessages(chat.getId()));
+            /*
             for(Message mes : messages){
                 if(mes.getSentBy().equals(username)){
                     mes.setSent(true);
@@ -103,7 +105,9 @@ public class ChatActivity extends AppCompatActivity {
                     mes.setSent(false);
                 }
             }
-            adapter.notifyDataSetChanged();
+
+             */
+           // adapter.notifyDataSetChanged();
         });
     }
 }

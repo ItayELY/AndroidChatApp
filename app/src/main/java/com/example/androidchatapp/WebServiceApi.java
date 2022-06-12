@@ -37,4 +37,8 @@ public interface WebServiceApi {
     Call<List<Message>> messages(
             @Path(value = "id", encoded = true)String id,
             @Query("userId") String user);
+    @POST("Contacts/{id}/messages")
+    Call<Void> sendMessage(@Path(value = "id", encoded = true)String id,
+                           @Query("userId") String user,
+                           @Body String content);
 }

@@ -123,4 +123,18 @@ public class UsersApi {
             }
         });
     }
+    public void sendMessage(String username, String id, String content){
+        Call<Void> call = webServiceApi.sendMessage(id, username, content);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+
+            }
+        });
+    }
 }
