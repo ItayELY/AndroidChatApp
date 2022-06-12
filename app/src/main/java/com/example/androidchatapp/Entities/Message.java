@@ -1,23 +1,33 @@
 package com.example.androidchatapp.Entities;
 
+import android.icu.text.SimpleDateFormat;
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
+
+import com.example.androidchatapp.DateConverter;
 
 import java.util.Date;
 import java.time.*;
 @Entity
+@TypeConverters(DateConverter.class)
 public class Message {
     @PrimaryKey(autoGenerate = true)
     private int id;
     private int ChatId;
     private String content;
-    private String created;
+    private LocalDateTime created;
     private Boolean sent;
     private String sentBy;
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public Message(String content, Boolean sent, String sentBy, int ChatId) {
         this.content = content;
-        //this.created = created;
+
+        this.created =  LocalDateTime.now();
         this.sent = sent;
         this.sentBy = sentBy;
         this.ChatId = ChatId;
@@ -39,11 +49,11 @@ public class Message {
         this.content = content;
     }
 
-    public String getCreated() {
+    public LocalDateTime getCreated() {
         return created;
     }
 
-    public void setCreated(String created) {
+    public void setCreated(LocalDateTime created) {
         this.created = created;
     }
 

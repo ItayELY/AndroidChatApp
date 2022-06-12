@@ -8,9 +8,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ListView;
 
+import com.example.androidchatapp.Daos.ChatDao;
 import com.example.androidchatapp.Daos.ContactDao;
 import com.example.androidchatapp.Daos.UserDao;
+import com.example.androidchatapp.Entities.Chat;
 import com.example.androidchatapp.Entities.Contact;
+import com.example.androidchatapp.SyncTasks.GetContactsTask;
 import com.example.androidchatapp.ViewModels.ContactsViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -20,6 +23,7 @@ public class ContactsActivity extends AppCompatActivity {
     private AppDB db;
     private UserDao userDao;
     private ContactDao contactDao;
+    private ChatDao chatDao;
     private ListView lvContacts;
     private ContactListAdapter adapter;
     private ArrayList<Contact> contacts;
@@ -30,17 +34,17 @@ public class ContactsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contacts);
         db = Room.databaseBuilder(getApplicationContext(), AppDB.class, "UsersDB")
-                .allowMainThreadQueries().build();
+                .allowMainThreadQueries().fallbackToDestructiveMigration().build();
         userDao = db.userDao();
         contactDao = db.contactDao();
+        chatDao = db.chatDao();
         contacts = new ArrayList<>();
         username = getIntent().getExtras().getString("CurUsr");
         contactsViewModel = new ViewModelProvider(this).get(ContactsViewModel.class);
         contactsViewModel.getContacts().observe(this, contactsList -> {
             this.contacts = new ArrayList<>(contactsList);
             lvContacts = findViewById(R.id.lvContacts);
-            //this.contacts = new ArrayList<>();
-            //contacts.addAll(contactDao.getAll(username));
+
             adapter = new ContactListAdapter(this, contacts);
 
             lvContacts.setAdapter(adapter);
@@ -53,7 +57,10 @@ public class ContactsActivity extends AppCompatActivity {
 
             lvContacts.setOnItemClickListener((adapterView, view, i, l) -> {
                 Contact contact = contacts.get(i);
+                Chat chat = chatDao.find(username, contact.getId());
+
                 Intent in = new Intent(this, ChatActivity.class);
+
                 in.putExtra("CurUsr", username);
                 in.putExtra("CurContact", contact.getId());
                 in.putExtra("CurContactNickname", contact.getName());
@@ -67,8 +74,16 @@ public class ContactsActivity extends AppCompatActivity {
                 startActivity(i);
             });
         });
+        /*
         UsersApi usersApi = new UsersApi();
         usersApi.contacts(username, this);
+
+         */
+        this.contacts = new ArrayList<>();
+        contacts.addAll(contactDao.getAll(username));
+        new GetContactsTask(contactsViewModel, this,
+                contactDao, chatDao,username).execute();
+
 
     }
     @Override

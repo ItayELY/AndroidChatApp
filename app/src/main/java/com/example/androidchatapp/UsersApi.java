@@ -117,6 +117,23 @@ public class UsersApi {
             }
         });
     }
+
+    public void contactsViewModel(String username, MutableLiveData<List<Contact>> contactsLD){
+        Call<List<Contact>> call = webServiceApi.contacts(username);
+        call.enqueue(new Callback<List<Contact>>() {
+            @Override
+            public void onResponse(Call<List<Contact>> call, Response<List<Contact>> response) {
+                List<Contact> contacts = response.body();
+
+                contactsLD.setValue(contacts);
+            }
+
+            @Override
+            public void onFailure(Call<List<Contact>> call, Throwable t) {
+                Log.i("contacts", t.getMessage());
+            }
+        });
+    }
     public void addContact(String username, String id,
                            String name, String server, String laseMessageDate){
         ContactToApi contactToApi = new ContactToApi(username, id, name, server, laseMessageDate);
@@ -149,6 +166,24 @@ public class UsersApi {
             }
         });
     }
+
+    public void messagesViewModel(String username, String id,
+                                  MutableLiveData<List<Message>> messages){
+        Call<List<Message>> call = webServiceApi.messages(id, username);
+        call.enqueue(new Callback<List<Message>>() {
+            @Override
+            public void onResponse(Call<List<Message>> call, Response<List<Message>> response) {
+
+                messages.setValue(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<List<Message>> call, Throwable t) {
+            Log.i("messages", "fail- " + t.getCause());
+            }
+        });
+    }
+
     public void sendMessage(String username, String id, String content){
         Call<Void> call = webServiceApi.sendMessage(id, username, content);
         call.enqueue(new Callback<Void>() {
