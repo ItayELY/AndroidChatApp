@@ -1,9 +1,15 @@
 package com.example.androidchatapp.Entities;
 
+import android.icu.text.SimpleDateFormat;
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 import java.time.LocalDateTime;
+import java.util.Date;
+
 @Entity
 
 public class Contact {
@@ -14,7 +20,7 @@ public class Contact {
     private String name;
     private String server;
     private String lastMessage;
-   // private LocalDateTime LastMessageDate;
+    private String lastMessageDate;
 
     public int getIId() {
         return IId;
@@ -32,13 +38,14 @@ public class Contact {
         this.userId = userId;
     }
 
-    public Contact(String userId, String id, String name, String server, String lastMessage) {
+    public Contact(String userId, String id, String name, String server, String lastMessage,
+                   String lastMessageDate) {
         this.userId = userId;
         this.id = id;
         this.name = name;
         this.server = server;
         this.lastMessage = lastMessage;
-       //LastMessageDate = lastMessageDate;
+        this.lastMessageDate = lastMessageDate;
     }
 
     public String getId() {
@@ -81,11 +88,21 @@ public class Contact {
                 ", lastMessage='" + lastMessage + '\'' +
                 '}';
     }
-    //  public LocalDateTime getLastMessageDate() {
-   //     return LastMessageDate;
-   // }
+      public String getLastMessageDate() {
+        return lastMessageDate;
+    }
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public Date getLastMessageDateD(){
+        SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yy, hh-mm");
+        try {
+            Date date = sdf.parse(this.lastMessageDate);
+            return date;
+        }catch (Exception e){
+            return null;
+        }
+    }
+    public void setLastMessageDate(String lastMessageDate) {
+        lastMessageDate = lastMessageDate;
+    }
 
-   // public void setLastMessageDate(LocalDateTime lastMessageDate) {
-   //     LastMessageDate = lastMessageDate;
- //   }
 }

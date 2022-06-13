@@ -12,7 +12,7 @@ import com.example.androidchatapp.Entities.Contact;
 import com.example.androidchatapp.Entities.Message;
 import com.example.androidchatapp.Entities.User;
 
-@Database(entities = {User.class, Contact.class, Message.class, Chat.class}, version = 8
+@Database(entities = {User.class, Contact.class, Message.class, Chat.class}, version = 9
                // autoMigrations = {
                 //        @AutoMigration(from = 3, to = 4)
                // }
