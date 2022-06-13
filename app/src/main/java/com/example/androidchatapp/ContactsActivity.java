@@ -81,15 +81,14 @@ public class ContactsActivity extends AppCompatActivity {
          */
         this.contacts = new ArrayList<>();
         contacts.addAll(contactDao.getAll(username));
-        new GetContactsTask(contactsViewModel, this,
-                contactDao, chatDao,username).execute();
+
 
 
     }
     @Override
     protected void onResume(){
         super.onResume();
-        UsersApi usersApi = new UsersApi();
-        usersApi.contacts(username, this);
+        new GetContactsTask(contactsViewModel, this,
+                contactDao, chatDao,username).execute();
     }
 }

@@ -184,12 +184,13 @@ public class UsersApi {
         });
     }
 
-    public void sendMessage(String username, String id, String content){
+    public void sendMessage(String username, String id, String content,
+                            MutableLiveData<Integer> update){
         Call<Void> call = webServiceApi.sendMessage(id, username, content);
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
-
+                update.setValue(update.getValue() + 1);
             }
 
             @Override

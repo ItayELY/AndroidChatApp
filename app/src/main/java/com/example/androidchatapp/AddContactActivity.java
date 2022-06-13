@@ -17,8 +17,10 @@ import com.example.androidchatapp.Daos.MessageDao;
 import com.example.androidchatapp.Daos.UserDao;
 import com.example.androidchatapp.Entities.Contact;
 import com.example.androidchatapp.Entities.User;
+import com.example.androidchatapp.SyncTasks.AddContactTask;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class AddContactActivity extends AppCompatActivity {
     private AppDB db;
@@ -53,9 +55,18 @@ public class AddContactActivity extends AppCompatActivity {
             String UnameStr = Uname.getText().toString();
             EditText Nname = findViewById(R.id.etNewContactNickname);
             String NnameStr = Nname.getText().toString();
-            UsersApi usersApi = new UsersApi();
-            usersApi.addContact(username,UnameStr, NnameStr, "localhost:3000",
-                    "2022-06-11T22:01:12.998Z");
+            //UsersApi usersApi = new UsersApi();
+            //usersApi.addContact(username,UnameStr, NnameStr, "localhost:5200",
+             //       "2022-06-11T22:01:12.998Z");
+            try {
+                new AddContactTask(
+                        username, UnameStr, NnameStr, "localhost:5200")
+                        .execute().get();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             /*
             User usr = userDao.find(UnameStr);
             if(usr == null){

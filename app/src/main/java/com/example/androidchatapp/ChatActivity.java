@@ -7,6 +7,7 @@ import androidx.room.Room;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -20,9 +21,12 @@ import com.example.androidchatapp.Entities.Chat;
 import com.example.androidchatapp.Entities.Message;
 import com.example.androidchatapp.Entities.User;
 import com.example.androidchatapp.SyncTasks.GetMessagesTask;
+import com.example.androidchatapp.SyncTasks.SendMessageTask;
 import com.example.androidchatapp.ViewModels.MessagesViewModel;
+import com.example.androidchatapp.ViewModels.UpdateViewModel;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 public class ChatActivity extends AppCompatActivity {
     private AppDB db;
@@ -39,6 +43,7 @@ public class ChatActivity extends AppCompatActivity {
     private User userObject;
     private Chat chat;
     private MessagesViewModel messagesViewModel;
+    UpdateViewModel updateViewModel;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -57,6 +62,12 @@ public class ChatActivity extends AppCompatActivity {
 
         lvMessages = findViewById(R.id.lvMessages);
         TextView tvContactName = findViewById(R.id.tvContactNameChat);
+        updateViewModel = new ViewModelProvider(this)
+                .get(UpdateViewModel.class);
+        updateViewModel.getUpdate().observe(this, update -> {
+            new GetMessagesTask(messagesViewModel, this, chatDao,
+                    messageDao, username, contactUsername).execute();
+        });
         messagesViewModel = new ViewModelProvider(this)
                 .get(MessagesViewModel.class);
         messagesViewModel.getMessages().observe(this, messageList -> {
@@ -69,28 +80,7 @@ public class ChatActivity extends AppCompatActivity {
             adapter = new MessageListAdapter(this, messages);
             lvMessages.setAdapter(adapter);
         });
-        /*
-        userObject = userDao.find(username);
 
-        lvMessages = findViewById(R.id.lvMessages);
-        TextView tvContactName = findViewById(R.id.tvContactNameChat);
-        tvContactName.setText(contactNickname);
-        messages = new ArrayList<>();
-        messages.addAll(messageDao.getAllMessages(chat.getId()));
-        for(Message m : messages){
-            if(m.getSentBy().equals(username)){
-                m.setSent(true);
-            }
-            else{
-                m.setSent(false);
-            }
-
-        }
-        adapter = new MessageListAdapter(this, messages);
-        lvMessages.setAdapter(adapter);
-        */
-       // UsersApi usersApi = new UsersApi();
-        //usersApi.messages(username, contactUsername, this);
 
         EditText etMessage = findViewById(R.id.etSendMessage);
         Button btnSend = findViewById(R.id.btnSendMessage);
@@ -102,24 +92,13 @@ public class ChatActivity extends AppCompatActivity {
         adapter = new MessageListAdapter(this, messages);
         lvMessages.setAdapter(adapter);
         btnSend.setOnClickListener(view -> {
-           // Message m = new Message(etMessage.getText().toString(), true, username, chat.getId());
-            UsersApi usersApi = new UsersApi();
-            usersApi.sendMessage(username, contactUsername, etMessage.getText().toString());
-            // messageDao.insert(m);
-            //messages.clear();
-          //  messages.addAll(messageDao.getAllMessages(chat.getId()));
-            /*
-            for(Message mes : messages){
-                if(mes.getSentBy().equals(username)){
-                    mes.setSent(true);
-                }
-                else{
-                    mes.setSent(false);
-                }
+            try {
+                new SendMessageTask(username, contactUsername, etMessage.getText().toString()
+                , updateViewModel.getUpdate()).execute().get();
+            } catch (ExecutionException | InterruptedException e) {
+                e.printStackTrace();
             }
-
-             */
-           // adapter.notifyDataSetChanged();
+            etMessage.setText("");
         });
     }
 }
