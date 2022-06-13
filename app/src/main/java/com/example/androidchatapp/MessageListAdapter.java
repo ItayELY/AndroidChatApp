@@ -1,6 +1,7 @@
 package com.example.androidchatapp;
 
 import android.content.Context;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,9 +10,11 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 
 import com.example.androidchatapp.Entities.Message;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class MessageListAdapter extends ArrayAdapter<Message> {
@@ -23,6 +26,7 @@ public class MessageListAdapter extends ArrayAdapter<Message> {
         this.inflater = LayoutInflater.from(ctx);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @NonNull
     @Override
     public View getView(int Position, @Nullable View convertView, @NonNull ViewGroup parent){
@@ -34,9 +38,10 @@ public class MessageListAdapter extends ArrayAdapter<Message> {
             convertView = inflater.inflate(R.layout.message_list_item_recieved, parent, false);
         }
         TextView messageContent = convertView.findViewById(R.id.tvMessageContent);
-       // TextView Time = convertView.findViewById(R.id.tvMessageTime);
+        TextView Time = convertView.findViewById(R.id.tvMessageTime);
 
         messageContent.setText(message.getContent());
+        Time.setText(message.getCreated());
 
 
         return convertView;

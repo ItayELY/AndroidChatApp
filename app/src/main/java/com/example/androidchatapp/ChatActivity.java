@@ -40,7 +40,7 @@ public class ChatActivity extends AppCompatActivity {
     private Chat chat;
     private MessagesViewModel messagesViewModel;
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

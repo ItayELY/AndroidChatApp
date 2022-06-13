@@ -2,6 +2,7 @@ package com.example.androidchatapp.SyncTasks;
 
 import android.os.AsyncTask;
 import android.os.Build;
+import android.util.Log;
 
 import androidx.annotation.RequiresApi;
 import androidx.lifecycle.MutableLiveData;
@@ -18,6 +19,7 @@ import com.example.androidchatapp.UsersApi;
 import com.example.androidchatapp.ViewModels.ContactsViewModel;
 import com.example.androidchatapp.ViewModels.MessagesViewModel;
 
+import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
@@ -46,13 +48,22 @@ public class GetMessagesTask extends AsyncTask<Void, Void, Void> {
             Chat chat = this.cdao.find(username, contactId);
 
             List<Message> messages = this.mdao.getAllMessages(chat.getId());
+            if(messages.size() != 0){
+                Date maxDate = messages.stream()
+                        .map(Message::getCreatedDate).max(Date::compareTo).get();
+                if(maxDate == null){
+                    for (Message m : messagesList){
 
-            LocalDateTime maxDate = messages.stream()
-                    .map(Message::getCreated).max(LocalDateTime::compareTo).get();
+                        this.mdao.insert(m);
 
-            for (Message m : messagesList){
-                if(m.getCreated().isAfter(maxDate)){
-                    this.mdao.insert(m);
+                    }
+                }
+                else{
+                    for (Message m : messagesList){
+                        if(m.getCreatedDate().after(maxDate)){
+                            this.mdao.insert(m);
+                        }
+                    }
                 }
             }
 

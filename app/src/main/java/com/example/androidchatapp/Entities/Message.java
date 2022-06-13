@@ -10,6 +10,7 @@ import androidx.room.TypeConverters;
 
 import com.example.androidchatapp.DateConverter;
 
+import java.text.ParseException;
 import java.util.Date;
 import java.time.*;
 @Entity
@@ -19,15 +20,15 @@ public class Message {
     private int id;
     private int ChatId;
     private String content;
-    private LocalDateTime created;
+    private String created;
     private Boolean sent;
     private String sentBy;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public Message(String content, Boolean sent, String sentBy, int ChatId) {
+    public Message(String content, Boolean sent, String sentBy, int ChatId, String created) {
         this.content = content;
 
-        this.created =  LocalDateTime.now();
+        this.created =  created;
         this.sent = sent;
         this.sentBy = sentBy;
         this.ChatId = ChatId;
@@ -49,11 +50,22 @@ public class Message {
         this.content = content;
     }
 
-    public LocalDateTime getCreated() {
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public Date getCreatedDate(){
+        SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yy, hh-mm");
+        try {
+            Date date = sdf.parse(created);
+            return date;
+        }catch (Exception e){
+            return null;
+        }
+    }
+
+    public String getCreated() {
         return created;
     }
 
-    public void setCreated(LocalDateTime created) {
+    public void setCreated(String created) {
         this.created = created;
     }
 
