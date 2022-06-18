@@ -68,6 +68,7 @@ public class ChatActivity extends AppCompatActivity {
             new GetMessagesTask(messagesViewModel, this, chatDao,
                     messageDao, username, contactUsername).execute();
         });
+
         messagesViewModel = new ViewModelProvider(this)
                 .get(MessagesViewModel.class);
         messagesViewModel.getMessages().observe(this, messageList -> {

@@ -19,6 +19,7 @@ public class SendMessageTask extends AsyncTask<Void, Void, Void> {
     private String username;
     private String contactUserName;
     private String content;
+    //
     private MutableLiveData<Integer> update;
 
 

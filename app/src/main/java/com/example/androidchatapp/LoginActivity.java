@@ -13,6 +13,9 @@ import android.widget.EditText;
 import com.example.androidchatapp.Compatible.UserToApi;
 import com.example.androidchatapp.Daos.UserDao;
 import com.example.androidchatapp.ViewModels.UserViewModel;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 public class LoginActivity extends AppCompatActivity {
     private AppDB db;
@@ -53,7 +56,17 @@ public class LoginActivity extends AppCompatActivity {
                 return;
             }
 
- */         userViewModel.login(userName.getText().toString(), password.getText().toString());
+
+ */
+            FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(LoginActivity.this,
+                                                                        new OnSuccessListener<InstanceIdResult>() {
+                        @Override
+                        public void onSuccess(InstanceIdResult instanceIdResult) {
+                          String newToken = instanceIdResult.getToken();
+
+                        }
+                    });
+                    userViewModel.login(userName.getText().toString(), password.getText().toString());
  /*
  usersApi.login(userName.getText().toString(),
                     password.getText().toString(), this);
