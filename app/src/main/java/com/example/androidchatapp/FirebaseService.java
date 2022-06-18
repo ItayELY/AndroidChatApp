@@ -22,8 +22,9 @@ public class FirebaseService extends FirebaseMessagingService {
     }
 
     @Override
-    public void onMessageReceived(RemoteMessage remoteMessage) {
-      if (remoteMessage.getNotification() != null){
+    public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
+      //int a = 1;
+        if (remoteMessage.getNotification() != null){
 
           createNotificationChanel();
 
@@ -36,6 +37,8 @@ public class FirebaseService extends FirebaseMessagingService {
           NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
           notificationManager.notify(1,builder.build());
       }
+
+
     }
 
     private void createNotificationChanel(){

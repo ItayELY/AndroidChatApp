@@ -59,12 +59,9 @@ public class LoginActivity extends AppCompatActivity {
 
  */
             FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(LoginActivity.this,
-                                                                        new OnSuccessListener<InstanceIdResult>() {
-                        @Override
-                        public void onSuccess(InstanceIdResult instanceIdResult) {
-                          String newToken = instanceIdResult.getToken();
+                    instanceIdResult -> {
+                      String newToken = instanceIdResult.getToken();
 
-                        }
                     });
                     userViewModel.login(userName.getText().toString(), password.getText().toString());
  /*
