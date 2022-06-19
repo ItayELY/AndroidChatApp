@@ -14,6 +14,7 @@ import com.example.androidchatapp.Compatible.UserToApi;
 import com.example.androidchatapp.Daos.UserDao;
 import com.example.androidchatapp.ViewModels.UserViewModel;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 
@@ -35,6 +36,20 @@ public class LoginActivity extends AppCompatActivity {
         toReg.setOnClickListener(view -> {
             Intent i = new Intent(this, RegisterActivity.class);
 
+            startActivity(i);
+        });
+
+        Button toSettings = findViewById(R.id.btnToSettings);
+
+        toSettings.setOnClickListener(view -> {
+            Intent i = new Intent(this, SettingsActivity.class);
+
+            startActivity(i);
+        });
+
+        FloatingActionButton toSettings1 = findViewById(R.id.btnSettings);
+        toSettings1.setOnClickListener(view -> {
+            Intent i = new Intent(this, SettingsActivity.class);
             startActivity(i);
         });
 

@@ -52,5 +52,21 @@
             android:text="@string/btnToRegister"
             tools:ignore="OnClick" />
 
+        <Button
+            android:id="@+id/btnToSettings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="settings"
+            tools:ignore="OnClick" />
     </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnSettings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="15dp"
+        android:src="@drawable/ic_action_settings"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>
