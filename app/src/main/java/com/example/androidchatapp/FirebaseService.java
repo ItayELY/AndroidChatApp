@@ -57,6 +57,8 @@ public class FirebaseService extends FirebaseMessagingService {
         Date date=new Date(remoteMessage.getSentTime());
         SimpleDateFormat df2 = new SimpleDateFormat("dd/MM/yy");
         String dateText = df2.format(date);
+        String from = remoteMessage.getFrom();
+        String to = remoteMessage.getTo();
         Message m = new Message(remoteMessage.getNotification().getBody(), false,
                 remoteMessage.getFrom(), chatDao.find(remoteMessage.getFrom(), remoteMessage.getTo()).getId(),
                 dateText);
@@ -66,7 +68,7 @@ public class FirebaseService extends FirebaseMessagingService {
         if (remoteMessage.getNotification() != null){
 
           createNotificationChanel();
-          FirebaseService.messagesViewModel.getMessages().setValue(messages);
+          //FirebaseService.messagesViewModel.getMessages().setValue(messages);
           NotificationCompat.Builder builder = new NotificationCompat.Builder(this,"1")
                   .setSmallIcon(R.drawable.ic_action_name)
                   .setContentTitle(remoteMessage.getNotification().getTitle())
