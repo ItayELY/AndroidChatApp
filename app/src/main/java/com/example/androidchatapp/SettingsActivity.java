@@ -21,13 +21,13 @@ public class SettingsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
 
-       super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
         Button button1, button2;
         final RelativeLayout relativeLayout;
         final ConstraintLayout constraintLayout;
-        // set button 1 with its id
+        //set button 1 with its id
         button1 = findViewById(R.id.btVar1);
 
         // set button 2 with its id
@@ -48,12 +48,12 @@ public class SettingsActivity extends AppCompatActivity {
 
         // onClick function for button 2
         button2.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
                 // set the color to relative layout
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
             }
         });
-
     }
 }
