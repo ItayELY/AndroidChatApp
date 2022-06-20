@@ -80,6 +80,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
  */
+
             FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(LoginActivity.this,
                     instanceIdResult -> {
                       String newToken = instanceIdResult.getToken();
