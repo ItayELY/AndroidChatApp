@@ -47,10 +47,11 @@ public class FirebaseService extends FirebaseMessagingService {
         FirebaseService.tokenFirebase = tokenFirebase;
     }
 
-    @SuppressLint("WrongThread")
-    @RequiresApi(api = Build.VERSION_CODES.O)
+   // @SuppressLint("WrongThread")
+    //@RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
+        /*
         AppDB db = Room.databaseBuilder(getApplicationContext(), AppDB.class, "UsersDB")
                 .allowMainThreadQueries().fallbackToDestructiveMigration().build();
         ChatDao chatDao = db.chatDao();
@@ -62,11 +63,13 @@ public class FirebaseService extends FirebaseMessagingService {
                 dateText);
         List<Message> messages= new ArrayList<>();
         messages.add(m);
+
+         */
       //int a = 1;
         if (remoteMessage.getNotification() != null){
 
           createNotificationChanel();
-          FirebaseService.messagesViewModel.getMessages().setValue(messages);
+        //  FirebaseService.messagesViewModel.getMessages().setValue(messages);
           NotificationCompat.Builder builder = new NotificationCompat.Builder(this,"1")
                   .setSmallIcon(R.drawable.ic_action_name)
                   .setContentTitle(remoteMessage.getNotification().getTitle())

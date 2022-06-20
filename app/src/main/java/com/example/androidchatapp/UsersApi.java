@@ -136,7 +136,6 @@ public class UsersApi {
             @Override
             public void onResponse(Call<List<Contact>> call, Response<List<Contact>> response) {
                 List<Contact> contacts = response.body();
-
                 contactsLD.setValue(contacts);
             }
 
