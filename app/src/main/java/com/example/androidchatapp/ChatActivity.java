@@ -71,7 +71,7 @@ public class ChatActivity extends AppCompatActivity {
 
         messagesViewModel = new ViewModelProvider(this)
                 .get(MessagesViewModel.class);
-        FirebaseService.setViewModel(messagesViewModel, this, chatDao, messageDao, username, contactUsername);
+       // FirebaseService.setViewModel(messagesViewModel, this, chatDao, messageDao, username, contactUsername);
         messagesViewModel.getMessages().observe(this, messageList -> {
             //userObject = userDao.find(username);
             //chat = chatDao.find(username, contactUsername);
