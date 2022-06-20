@@ -75,7 +75,7 @@ public class FirebaseService extends FirebaseMessagingService {
                   .setContentText(remoteMessage.getNotification().getBody())
                   .setPriority(NotificationCompat.PRIORITY_DEFAULT);
 
-          NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
           notificationManager.notify(1,builder.build());
       }
 

@@ -13,6 +13,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatDelegate;
 
 public class SettingsActivity extends AppCompatActivity {
@@ -24,7 +26,7 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        Button button1, button2;
+        Button button1, button2,button3;
         final RelativeLayout relativeLayout;
         final ConstraintLayout constraintLayout;
         //set button 1 with its id
@@ -55,5 +57,13 @@ public class SettingsActivity extends AppCompatActivity {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
             }
         });
+
+        button3 = findViewById(R.id.btnServer);
+        button3.setOnClickListener(v->{
+            // set the color to relative layout
+            Toast.makeText(this, "Cant change to this server", Toast.LENGTH_SHORT).show();
+            return;
+        });
+
     }
 }

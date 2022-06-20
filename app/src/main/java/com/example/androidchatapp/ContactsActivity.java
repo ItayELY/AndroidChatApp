@@ -85,10 +85,12 @@ public class ContactsActivity extends AppCompatActivity {
 
 
     }
+
     @Override
     protected void onResume(){
         super.onResume();
         new GetContactsTask(contactsViewModel, this,
                 contactDao, chatDao,username).execute();
     }
+
 }

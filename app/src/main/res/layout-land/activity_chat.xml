@@ -6,15 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".ChatActivity">
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btnAddContact"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        android:src="@drawable/ic_add"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="455dp" />
-
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
@@ -39,6 +30,7 @@
             android:id="@+id/lvContacts"
             android:layout_width="250dp"
             android:layout_height="match_parent"
+            tools:listitem="@layout/contact_list_item"
             tools:layout_editor_absoluteX="42dp">
 
         </ListView>
@@ -114,5 +106,12 @@
 
     </LinearLayout>
 
-
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnAddContact"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:src="@drawable/ic_add"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
