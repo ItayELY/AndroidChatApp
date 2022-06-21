@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.lifecycle.MutableLiveData;
 
 import com.example.androidchatapp.Entities.Message;
 
@@ -19,11 +20,39 @@ import java.util.ArrayList;
 
 public class MessageListAdapter extends ArrayAdapter<Message> {
     LayoutInflater inflater;
+    ArrayList<Message> messages;
+    MutableLiveData<ArrayList<Message>> liveData;
+
+    public MutableLiveData<ArrayList<Message>> getLiveData() {
+        return liveData;
+    }
+
+    public void setLiveData(MutableLiveData<ArrayList<Message>> liveData) {
+        this.liveData = liveData;
+        notifyDataSetChanged();
+    }
+
+    public ArrayList<Message> getMessages() {
+        return messages;
+    }
+
+    public void setMessages(ArrayList<Message> messages) {
+        this.messages = messages;
+        liveData.postValue(messages);
+        notifyDataSetChanged();
+    }
 
     public MessageListAdapter(Context ctx, ArrayList<Message> messageArrayList){
         super(ctx, R.layout.message_list_item_sent, messageArrayList);
-
+        this.messages = messageArrayList;
         this.inflater = LayoutInflater.from(ctx);
+        liveData = new MutableLiveData<>();
+        setMessages(messageArrayList);
+    }
+
+    public void addMessage(Message m)  {
+        this.messages.add(m);
+        setMessages(this.messages);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)

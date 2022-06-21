@@ -27,18 +27,23 @@ import java.util.List;
 public class FirebaseService extends FirebaseMessagingService {
     public FirebaseService() {
     }
+
     static String tokenFirebase;
     static MessagesViewModel messagesViewModel;
+    static MessageListAdapter adapter;
+    static ChatActivity activity;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public static void setViewModel(MessagesViewModel messagesViewModel, ChatActivity chatActivity,
-                                    ChatDao chatDao, MessageDao messageDao, String username, String contactId){
+                                    ChatDao chatDao, MessageDao messageDao, String username, String contactId) {
         FirebaseService.messagesViewModel = messagesViewModel;
         FirebaseService.messagesViewModel.getMessages().observe(chatActivity, messages -> {
             new GetMessagesTask(messagesViewModel, chatActivity, chatDao, messageDao, username, contactId)
                     .execute();
         });
+
     }
+
     public static String getTokenFirebase() {
         return tokenFirebase;
     }
@@ -54,36 +59,47 @@ public class FirebaseService extends FirebaseMessagingService {
         AppDB db = Room.databaseBuilder(getApplicationContext(), AppDB.class, "UsersDB")
                 .allowMainThreadQueries().fallbackToDestructiveMigration().build();
         ChatDao chatDao = db.chatDao();
-        Date date=new Date(remoteMessage.getSentTime());
+        MessageDao messageDao = db.messageDao();
+        Date date = new Date(remoteMessage.getSentTime());
         SimpleDateFormat df2 = new SimpleDateFormat("dd/MM/yy");
         String dateText = df2.format(date);
         Message m = new Message(remoteMessage.getNotification().getBody(), false,
                 remoteMessage.getFrom(), chatDao.find(remoteMessage.getFrom(), remoteMessage.getTo()).getId(),
                 dateText);
-        List<Message> messages= new ArrayList<>();
+        List<Message> messages = new ArrayList<>();
         messages.add(m);
-      //int a = 1;
-        if (remoteMessage.getNotification() != null){
+        //int a = 1;
+        if (remoteMessage.getNotification() != null) {
 
-          createNotificationChanel();
-          FirebaseService.messagesViewModel.getMessages().setValue(messages);
-          NotificationCompat.Builder builder = new NotificationCompat.Builder(this,"1")
-                  .setSmallIcon(R.drawable.ic_action_name)
-                  .setContentTitle(remoteMessage.getNotification().getTitle())
-                  .setContentText(remoteMessage.getNotification().getBody())
-                  .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+            createNotificationChanel();
+            FirebaseService.messagesViewModel.getMessages().setValue(messages);
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "1")
+                    .setSmallIcon(R.drawable.ic_action_name)
+                    .setContentTitle(remoteMessage.getNotification().getTitle())
+                    .setContentText(remoteMessage.getNotification().getBody())
+                    .setPriority(NotificationCompat.PRIORITY_DEFAULT);
 
-          NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
-          notificationManager.notify(1,builder.build());
-      }
+            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+            notificationManager.notify(1, builder.build());
+        }
 
+        messageDao.insert(m);
+
+        if (adapter != null && activity != null) {
+            activity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    adapter.addMessage(m);
+                }
+            });
+        }
 
     }
 
-    private void createNotificationChanel(){
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+    private void createNotificationChanel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel chanel = new NotificationChannel("1", "My chanel",importance);
+            NotificationChannel chanel = new NotificationChannel("1", "My chanel", importance);
             chanel.setDescription("Demo chanel");
 
             NotificationManager notificationManager = getSystemService(NotificationManager.class);

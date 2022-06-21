@@ -54,6 +54,7 @@ public class ChatActivity extends AppCompatActivity {
                 .allowMainThreadQueries().fallbackToDestructiveMigration().build();
         userDao = db.userDao();
         contactDao = db.contactDao();
+        FirebaseService.activity = ChatActivity.this;
         messageDao = db.messageDao();
         chatDao = db.chatDao();
         username = getIntent().getExtras().getString("CurUsr");
@@ -80,6 +81,7 @@ public class ChatActivity extends AppCompatActivity {
             messages = new ArrayList<>();
             messages.addAll(messageList);
             adapter = new MessageListAdapter(this, messages);
+            FirebaseService.adapter = adapter;
             lvMessages.setAdapter(adapter);
         });
 
@@ -92,6 +94,8 @@ public class ChatActivity extends AppCompatActivity {
                 messageDao, username, contactUsername).execute();
         messages.addAll(messageDao.getAllMessages(chat.getId()));
         adapter = new MessageListAdapter(this, messages);
+        FirebaseService.adapter = adapter;
+
         lvMessages.setAdapter(adapter);
         btnSend.setOnClickListener(view -> {
             try {
