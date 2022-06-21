@@ -10,8 +10,8 @@
     <color name = "gray">#C1BABA</color>
     <color name="blue">#FF3700F3</color>
     <color name="light_white">#CAC7C7</color>
-    <color name="green_bg_message">#9ee89f</color>
-    <color name="green_bg_profile">#52f255</color>
+    <color name="green_bg_message">#012502</color>
+    <color name="green_bg_profile">#29040B</color>
     <color name="green">#007800</color>
 
     <color name = "dark">#373636</color>

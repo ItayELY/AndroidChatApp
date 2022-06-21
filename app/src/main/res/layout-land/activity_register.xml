@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity">
+    tools:context=".RegisterActivity">
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -37,38 +37,33 @@
             android:layout_margin="10dp"
             android:hint="password"
             android:inputType="textPassword" />
+        <EditText
+            android:id="@+id/etPasswordValid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:hint="re-password"
+            android:inputType="textPassword" />
+        <EditText
+            android:id="@+id/etNickname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:hint="Nickname" />
 
         <Button
-            android:id="@+id/btnLogin"
+            android:id="@+id/btnRegister"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/btnLogin"
-            tools:ignore="OnClick" />
-        <Button
-            android:id="@+id/btnToRegister"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:text="@string/btnToRegister"
             tools:ignore="OnClick" />
-
         <Button
-            android:id="@+id/btnToSettings"
+            android:id="@+id/btnToLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="settings"
-            android:onClick="onClickTest"
+            android:text="@string/btnLogin"
             tools:ignore="OnClick" />
-    </LinearLayout>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btnSettings"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_margin="15dp"
-        android:onClick="onClickTest"
-        android:src="@drawable/ic_action_settings"
-        />
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

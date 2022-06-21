@@ -37,7 +37,7 @@ public class ContactListAdapter extends ArrayAdapter<Contact> {
         TextView Time = convertView.findViewById(R.id.tvLastMessageTime);
 
         name.setText(contact.getName());
-        lastMsg.setText(contact.getLastMessage());
+        lastMsg.setText(contact.getLastMessageContent());
         Time.setText(contact.getLastMessageDate());
 
 

@@ -52,13 +52,6 @@
             android:text="@string/btnToRegister"
             tools:ignore="OnClick" />
 
-        <Button
-            android:id="@+id/btnToSettings"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="settings"
-            android:onClick="onClickTest"
-            tools:ignore="OnClick" />
     </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -68,7 +61,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_margin="15dp"
-        android:onClick="onClickTest"
         android:src="@drawable/ic_action_settings"
         />
 </androidx.constraintlayout.widget.ConstraintLayout>

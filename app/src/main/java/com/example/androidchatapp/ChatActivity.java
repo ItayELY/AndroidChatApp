@@ -35,6 +35,11 @@ public class ChatActivity extends AppCompatActivity {
     private MessageDao messageDao;
     private ChatDao chatDao;
     private ListView lvMessages;
+
+    public ListView getLvMessages() {
+        return lvMessages;
+    }
+
     private MessageListAdapter adapter;
     private ArrayList<Message> messages;
     private String username;
@@ -54,10 +59,14 @@ public class ChatActivity extends AppCompatActivity {
                 .allowMainThreadQueries().fallbackToDestructiveMigration().build();
         userDao = db.userDao();
         contactDao = db.contactDao();
+        FirebaseService.activity = ChatActivity.this;
         messageDao = db.messageDao();
         chatDao = db.chatDao();
         username = getIntent().getExtras().getString("CurUsr");
+        FirebaseService.currentUserId = username;
         contactUsername = getIntent().getExtras().getString("CurContact");
+        FirebaseService.fromContact = contactUsername;
+
         contactNickname = getIntent().getExtras().getString("CurContactNickname");
 
         lvMessages = findViewById(R.id.lvMessages);
@@ -68,8 +77,10 @@ public class ChatActivity extends AppCompatActivity {
             new GetMessagesTask(messagesViewModel, this, chatDao,
                     messageDao, username, contactUsername).execute();
         });
+
         messagesViewModel = new ViewModelProvider(this)
                 .get(MessagesViewModel.class);
+       // FirebaseService.setViewModel(messagesViewModel, this, chatDao, messageDao, username, contactUsername);
         messagesViewModel.getMessages().observe(this, messageList -> {
             //userObject = userDao.find(username);
             //chat = chatDao.find(username, contactUsername);
@@ -78,6 +89,7 @@ public class ChatActivity extends AppCompatActivity {
             messages = new ArrayList<>();
             messages.addAll(messageList);
             adapter = new MessageListAdapter(this, messages);
+            FirebaseService.adapter = adapter;
             lvMessages.setAdapter(adapter);
         });
 
@@ -90,6 +102,8 @@ public class ChatActivity extends AppCompatActivity {
                 messageDao, username, contactUsername).execute();
         messages.addAll(messageDao.getAllMessages(chat.getId()));
         adapter = new MessageListAdapter(this, messages);
+        FirebaseService.adapter = adapter;
+
         lvMessages.setAdapter(adapter);
         btnSend.setOnClickListener(view -> {
             try {

@@ -88,6 +88,18 @@ public class UsersApi {
                 didLogin[0] = (response.code() == 200);
                 if(didLogin[0]){
                     connected.setValue(response.body());
+                    Call<Void> callIt = webServiceApi.notifyToken(new Token(FirebaseService.getTokenFirebase(), username));
+                    callIt.enqueue(new Callback<Void>() {
+                        @Override
+                        public void onResponse(Call<Void> call, Response<Void> response) {
+
+                        }
+
+                        @Override
+                        public void onFailure(Call<Void> call, Throwable t) {
+
+                        }
+                    });
                 }
             }
 
@@ -124,7 +136,6 @@ public class UsersApi {
             @Override
             public void onResponse(Call<List<Contact>> call, Response<List<Contact>> response) {
                 List<Contact> contacts = response.body();
-
                 contactsLD.setValue(contacts);
             }
 

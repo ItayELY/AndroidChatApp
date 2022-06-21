@@ -7,18 +7,28 @@ import androidx.room.Room;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.androidchatapp.Compatible.UserToApi;
 import com.example.androidchatapp.Daos.UserDao;
 import com.example.androidchatapp.ViewModels.UserViewModel;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 public class LoginActivity extends AppCompatActivity {
     private AppDB db;
     private UserDao userDao;
     private UserViewModel userViewModel;
     UserToApi userToApi = null;
+    public void onClickTest(View v){
+        Intent i = new Intent(this, SettingsActivity.class);
+
+        startActivity(i);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +44,22 @@ public class LoginActivity extends AppCompatActivity {
 
             startActivity(i);
         });
+/*
+        Button toSettings = findViewById(R.id.btnToSettings);
 
+        toSettings.setOnClickListener(view -> {
+            Intent i = new Intent(this, SettingsActivity.class);
+
+            startActivity(i);
+        });
+*/
+        /*
+        FloatingActionButton toSettings1 = findViewById(R.id.btnSettings);
+        toSettings1.setOnClickListener(view -> {
+            Intent i = new Intent(this, SettingsActivity.class);
+            startActivity(i);
+        });
+        */
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         userViewModel.getUser().observe(this, user -> {
             userToApi = user;
@@ -53,7 +78,15 @@ public class LoginActivity extends AppCompatActivity {
                 return;
             }
 
- */         userViewModel.login(userName.getText().toString(), password.getText().toString());
+
+ */
+
+            FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(LoginActivity.this,
+                    instanceIdResult -> {
+                      String newToken = instanceIdResult.getToken();
+                      FirebaseService.setTokenFirebase(newToken);
+                    });
+                    userViewModel.login(userName.getText().toString(), password.getText().toString());
  /*
  usersApi.login(userName.getText().toString(),
                     password.getText().toString(), this);

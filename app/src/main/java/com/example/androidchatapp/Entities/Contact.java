@@ -7,7 +7,6 @@ import androidx.annotation.RequiresApi;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -19,7 +18,7 @@ public class Contact {
     private String id;
     private String name;
     private String server;
-    private String lastMessage;
+    private String lastMessageContent;
     private String lastMessageDate;
 
     public int getIId() {
@@ -38,13 +37,13 @@ public class Contact {
         this.userId = userId;
     }
 
-    public Contact(String userId, String id, String name, String server, String lastMessage,
+    public Contact(String userId, String id, String name, String server, String lastMessageContent,
                    String lastMessageDate) {
         this.userId = userId;
         this.id = id;
         this.name = name;
         this.server = server;
-        this.lastMessage = lastMessage;
+        this.lastMessageContent = lastMessageContent;
         this.lastMessageDate = lastMessageDate;
     }
 
@@ -72,12 +71,12 @@ public class Contact {
         this.server = server;
     }
 
-    public String getLastMessage() {
-        return lastMessage;
+    public String getLastMessageContent() {
+        return lastMessageContent;
     }
 
-    public void setLastMessage(String lastMessage) {
-        this.lastMessage = lastMessage;
+    public void setLastMessageContent(String lastMessageContent) {
+        this.lastMessageContent = lastMessageContent;
     }
 
     @Override
@@ -85,7 +84,7 @@ public class Contact {
         return "Contact{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
-                ", lastMessage='" + lastMessage + '\'' +
+                ", lastMessage='" + lastMessageContent + '\'' +
                 '}';
     }
       public String getLastMessageDate() {

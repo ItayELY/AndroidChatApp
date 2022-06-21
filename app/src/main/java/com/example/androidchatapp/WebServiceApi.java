@@ -41,4 +41,7 @@ public interface WebServiceApi {
     Call<Void> sendMessage(@Path(value = "id", encoded = true)String id,
                            @Query("userId") String user,
                            @Body String content);
+
+    @POST("Token")
+    Call<Void> notifyToken(@Body Token token);
 }

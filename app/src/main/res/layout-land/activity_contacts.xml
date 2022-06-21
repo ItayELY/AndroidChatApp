@@ -21,6 +21,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout"
         tools:layout_editor_absoluteX="42dp"
+
         >
 
     </ListView>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddContactActivity">
+
+    <LinearLayout
+
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="@android:color/holo_green_dark"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent"></LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/add_new_contact"
+            android:layout_margin="15dp"
+            ></TextView>
+        <EditText
+            android:id="@+id/etNewContactUsername"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="username:"
+            android:gravity="center"
+            android:layout_margin="15dp"
+           />
+        <EditText
+            android:id="@+id/etNewContactNickname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="nickname:"
+            android:gravity="center"
+            android:layout_margin="15dp"
+            />
+        <Button
+            android:id="@+id/btnSubmitNewContact"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/add"
+            />
+
+
+
+    </LinearLayout>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
