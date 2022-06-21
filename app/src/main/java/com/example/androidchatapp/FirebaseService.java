@@ -13,6 +13,8 @@ import androidx.room.Room;
 
 import com.example.androidchatapp.Daos.ChatDao;
 import com.example.androidchatapp.Daos.MessageDao;
+import com.example.androidchatapp.Entities.Chat;
+import com.example.androidchatapp.Entities.Contact;
 import com.example.androidchatapp.Entities.Message;
 import com.example.androidchatapp.SyncTasks.GetMessagesTask;
 import com.example.androidchatapp.ViewModels.MessagesViewModel;
@@ -32,6 +34,8 @@ public class FirebaseService extends FirebaseMessagingService {
     static MessagesViewModel messagesViewModel;
     static MessageListAdapter adapter;
     static ChatActivity activity;
+    static String fromContact;
+    static String currentUserId;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public static void setViewModel(MessagesViewModel messagesViewModel, ChatActivity chatActivity,
@@ -63,8 +67,12 @@ public class FirebaseService extends FirebaseMessagingService {
         Date date = new Date(remoteMessage.getSentTime());
         SimpleDateFormat df2 = new SimpleDateFormat("dd/MM/yy");
         String dateText = df2.format(date);
+        if(fromContact == null  || currentUserId == null)
+            return;
+
+        Chat c = chatDao.find(fromContact, currentUserId);
         Message m = new Message(remoteMessage.getNotification().getBody(), false,
-                remoteMessage.getFrom(), chatDao.find(remoteMessage.getFrom(), remoteMessage.getTo()).getId(),
+                fromContact, c.getId(),
                 dateText);
         List<Message> messages = new ArrayList<>();
         messages.add(m);
@@ -72,7 +80,6 @@ public class FirebaseService extends FirebaseMessagingService {
         if (remoteMessage.getNotification() != null) {
 
             createNotificationChanel();
-            FirebaseService.messagesViewModel.getMessages().setValue(messages);
             NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "1")
                     .setSmallIcon(R.drawable.ic_action_name)
                     .setContentTitle(remoteMessage.getNotification().getTitle())
@@ -83,13 +90,14 @@ public class FirebaseService extends FirebaseMessagingService {
             notificationManager.notify(1, builder.build());
         }
 
-        messageDao.insert(m);
+        //messageDao.insert(m);
 
         if (adapter != null && activity != null) {
             activity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     adapter.addMessage(m);
+                    activity.getLvMessages().setStackFromBottom(true);
                 }
             });
         }

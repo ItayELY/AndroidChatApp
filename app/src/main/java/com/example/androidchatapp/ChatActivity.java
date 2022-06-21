@@ -35,6 +35,11 @@ public class ChatActivity extends AppCompatActivity {
     private MessageDao messageDao;
     private ChatDao chatDao;
     private ListView lvMessages;
+
+    public ListView getLvMessages() {
+        return lvMessages;
+    }
+
     private MessageListAdapter adapter;
     private ArrayList<Message> messages;
     private String username;
@@ -58,7 +63,10 @@ public class ChatActivity extends AppCompatActivity {
         messageDao = db.messageDao();
         chatDao = db.chatDao();
         username = getIntent().getExtras().getString("CurUsr");
+        FirebaseService.currentUserId = username;
         contactUsername = getIntent().getExtras().getString("CurContact");
+        FirebaseService.fromContact = contactUsername;
+
         contactNickname = getIntent().getExtras().getString("CurContactNickname");
 
         lvMessages = findViewById(R.id.lvMessages);
