@@ -49,6 +49,7 @@
             android:layout_weight="5"
             android:background="@color/green_bg_message"
             android:divider="@null"
+            android:stackFromBottom="true"
             >
         </ListView>
 
