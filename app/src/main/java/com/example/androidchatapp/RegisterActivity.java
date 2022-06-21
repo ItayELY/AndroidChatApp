@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.androidchatapp.Daos.UserDao;
 import com.example.androidchatapp.Entities.User;
@@ -37,9 +38,27 @@ public class RegisterActivity extends AppCompatActivity {
             EditText passwordValid = findViewById(R.id.etPasswordValid);
             EditText nick = findViewById(R.id.etNickname);
             Log.i("reg", "pressed");
-            if(!password.getText().toString().equals(passwordValid.getText().toString())){
+
+
+            if(userName.getText().toString().isEmpty() || nick.getText().toString().isEmpty()
+                    || password.getText().toString().isEmpty() || passwordValid.getText().toString().isEmpty()){
+                Toast.makeText(this,"Please fill all fields",Toast.LENGTH_SHORT).show();
                 return;
             }
+            else if (userDao.find(userName.getText().toString()) != null){
+                Toast.makeText(this,"username already in use",Toast.LENGTH_SHORT).show();
+                return;
+            }
+            else if( password.getText().toString().length() < 4 ){
+                Toast.makeText(this,"Password length should be at least 4 characters",Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            else if (!password.getText().toString().equals(passwordValid.getText().toString())){
+                Toast.makeText(this,"Password doesn't match",Toast.LENGTH_SHORT).show();
+                return;
+            }
+
             User u = new User(userName.getText().toString(), password.getText().toString());
            // userDao.insert(u);
             UsersApi usersApi = new UsersApi();
