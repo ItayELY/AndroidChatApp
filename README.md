@@ -1,6 +1,6 @@
 # AndroidChatApp
-This a the android version of our chatUp this application
-By the way, we are happy to have received to our new member to our team, Elad Vizenblit.
+This is the android version of our chatApp application
+By the way, we are happy to bring a new member to our ranks, Elad Vizenblit.
 (Please note that Yotam has clearly allowed us not to implement the Horizonatl Layout feature.)
 
 
